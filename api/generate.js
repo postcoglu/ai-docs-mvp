@@ -1,16 +1,16 @@
 export default async function handler(req, res) {
   if (req.method!== 'POST') return res.status(405).json({ error: 'POST only' });
   const { company, docType, prompt } = req.body;
-  if (!process.env.OPENAI_API_KEY) return res.status(500).json({ error: 'Add OPENAI_API_KEY in Vercel Settings' });
+  if (!process.env.GROQ_API_KEY) return res.status(500).json({ error: 'Add GROQ_API_KEY in Vercel Settings' });
 
   try {
-    const r = await fetch('https://api.openai.com/v1/chat/completions', {
+    const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + process.env.OPENAI_API_KEY },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + process.env.GROQ_API_KEY },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model: 'llama-3.3-70b-versatile',
         messages: [
-          { role: 'system', content: `You are Postcoglu. Create professional ${docType} for ${company}. Structure: Title, Purpose, Scope, Responsibilities, Detailed Procedure (numbered steps), Safety/Compliance, Revision. Use Markdown.` },
+          { role: 'system', content: `You are Postcoglu. Create professional ${docType} for ${company}. Structure: Title, Executive Summary, Details.` },
           { role: 'user', content: prompt }
         ],
         temperature: 0.7,
