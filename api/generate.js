@@ -8,11 +8,17 @@ export default async function handler(req, res) {
   const { company, docType, prompt } = req.body;
 
   try {
-    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, {
+    const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+
+    if (!apiKey) {
+      return res.status(500).json({ error: 'API key not configured on server' });
+    }
+
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: `Create a professional ${docType} document for company ${company}. Task details: ${prompt}. Include: Title, Executive Summary, Key Sections with bullet points, Conclusion. Formal business tone.` }] }]
+        contents: [{ parts: [{ text: `Create a professional ${docType} document for ${company}. ${prompt || ''}` }] }]
       })
     });
 
@@ -20,7 +26,7 @@ export default async function handler(req, res) {
     const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!text) {
-      return res.status(500).json({ error: 'Gemini Error: ' + JSON.stringify(data).slice(0,500) });
+      return res.status(500).json({ error: 'Gemini Error: ' + JSON.stringify(data) });
     }
 
     res.status(200).json({ result: text });
