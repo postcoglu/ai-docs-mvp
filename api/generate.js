@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     const { company='Postcoglu', docType='SOP', prompt='' } = req.body || {};
     const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY;
     if (!apiKey) return res.status(500).json({error: 'Missing API key'});
-    const model = 'gemini-2.0-flash';
+    const model = 'gemini-3.6-flash';
     const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({contents:[{parts:[{text:`Create ${docType} for ${company}: ${prompt}`}]}]})
