@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     const body=req.body||{};
     const apiKey=process.env.GEMINI_API_KEY||process.env.GOOGLE_GENERATIVE_AI_API_KEY;
     if(!apiKey) return res.status(500).json({error:"Missing API key in Vercel"});
-    const model="gemini-2.5-flash";
+    const model="gemini-3.6-flash";
     const prompt=`Create a detailed ${body.docType||'SOP'} for ${body.company||'Postcoglu'}. Task: ${body.prompt||'bus inspection'}. Use professional formatting.`;
     const r=await fetch("https://generativelanguage.googleapis.com/v1/models/"+model+":generateContent?key="+apiKey,{
       method:"POST",
