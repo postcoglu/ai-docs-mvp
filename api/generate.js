@@ -35,7 +35,7 @@ export default async function handler(req, res) {
     }
 
     // Gemini model
-    const model = "gemini-1.5-flash";
+    const model = "gemini-3.8-flash";
 
     // Gemini API request
     const response = await fetch(
