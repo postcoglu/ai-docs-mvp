@@ -1,50 +1,36 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Postcoglu AI Docs - FREE LEGIT</title>
+<title>Postcoglu Ltd</title>
 <style>
-body{font-family:Arial;margin:0;padding:15px;background:#f5f7fb}
-.card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 4px 18px #0001}
-.header{border-bottom:4px solid #0B3D91;display:flex;align-items:center;gap:10px;padding-bottom:10px;margin-bottom:12px}
-textarea{width:100%;padding:14px;border:2px solid #0B3D91;border-radius:10px;height:110px;font-size:16px}
-button{width:100%;padding:14px;background:#0B3D91;color:#fff;border:none;border-radius:10px;font-weight:bold;font-size:16px}
-#out{border:1px solid #ddd;padding:14px;background:#fff;white-space:pre-wrap;min-height:250px;line-height:1.7;font-size:14px;border-radius:10px}
-.small{font-size:10px;text-align:center;color:#666;margin-top:12px;border-top:1px solid #eee;padding-top:8px}
-</style>
-</head>
-<body>
-<div class="card">
-<div class="header"><h2>🚌 Postcoglu Ltd</h2></div>
-<p><b>AI-Powered Documentation Platform</b> - LEGIT FREE EDITION</p>
+body{font-family:Arial;padding:15px;max-width:700px;margin:auto}
+header{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+header img{height:48px}
+textarea{width:100%;height:90px;padding:12px;font-size:16px;border:2px solid #0d2a54;border-radius:8px}
+button{width:100%;padding:14px;background:#0d2a54;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;margin-top:10px}
+#output{white-space:pre-wrap;background:#f6f8ff;padding:15px;border-radius:8px;margin-top:15px;border-left:4px solid #1565d8}
+small{color:#666}
+</style></head><body>
+<header>
+<img src="logo.png" onerror="this.style.display='none'">
+<div><b style="font-size:20px">Postcoglu Ltd</b><br><small>AI-Powered Documentation Platform - LEGIT FREE EDITION</small></div>
+</header>
+<hr style="border:2px solid #0d2a54">
 <label>What document do you need?</label>
-<textarea id="topic" placeholder="Example: Project Proposal for 2 new buses 51 seater for bank loan in UGX"></textarea>
-<button id="btn" onclick="gen()">Generate with AI - FREE</button>
-<div id="out">Your official document will appear here... Ready for print, stamp, bank, URA.</div>
-<div style="display:flex;gap:8px;margin-top:10px">
-<button onclick="window.print()" style="background:#333">📄 PDF / Print</button>
-<button onclick="shareW()" style="background:#25D366">WhatsApp Share</button>
-</div>
-<div class="small">Postcoglu Ltd | Bus Charter, School Transport, Corporate Hire | Kampala, Uganda | System Generated FREE Doc valid with stamp | ai-docs-mvp-iota.vercel.app | ENGLISH ONLY - LEGIT</div>
-</div>
+<textarea id="prompt" placeholder="Example: Receipts, Sales invoice for 3 days bus hire 1.5M per day, Bus inspection checklist 51 seater"></textarea>
+<button onclick="generate()">Generate with AI - FREE</button>
+<div id="output">Your EFRIS compliant document will appear here...</div>
+<button onclick="window.print()" style="background:#1565d8;margin-top:8px">📄 Download PDF / Print</button>
 <script>
-async function gen(){
-const topic=document.getElementById("topic").value;
-const out=document.getElementById("out");
-const btn=document.getElementById("btn");
-if(!topic){alert("Type something");return;}
-btn.innerText="Generating official document..."; out.innerText="Generating official document...";
-try{
-const res=await fetch("/api/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt:topic})});
-const d=await res.json();
-if(d.error){out.innerText="❌ "+d.error}else{out.innerText=d.text||d.result||d.output||d.response||JSON.stringify(d)}
-}catch(e){out.innerText="❌ Error - "+e.message}
-btn.innerText="Generate with AI - FREE";
-}
-function shareW(){
-const t=document.getElementById("out").innerText.slice(0,1000);
-window.open("https://wa.me/?text="+encodeURIComponent(t));
+async function generate(){
+ const p=document.getElementById('prompt').value;
+ if(!p){alert('Type document needed');return}
+ document.getElementById('output').innerText='Generating...';
+ try{
+  const r=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:p})});
+  const d=await r.json();
+  document.getElementById('output').innerText=d.text||d.error;
+ }catch(e){document.getElementById('output').innerText='Error: '+e.message}
 }
 </script>
-</body>
-</html>
+</body></html>
