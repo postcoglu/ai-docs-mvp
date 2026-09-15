@@ -42,7 +42,7 @@ headers:{"Content-Type":"application/json"},
 body:JSON.stringify({prompt:topic})
 });
 const d=await res.json();
-if(d.error){out.innerText="❌ "+d.error}else{out.innerText=d.result}
+if(d.error){out.innerText="❌ "+d.error}else{out.innerText=d.text}
 }catch(e){out.innerText="❌ Error: "+e.message}
 btn.innerText="Generate with AI - FREE";
 }
