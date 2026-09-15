@@ -4,27 +4,26 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Postcoglu AI Docs - FREE LEGIT</title>
 <style>
-body{font-family:Arial;max-width:750px;margin:0 auto;padding:15px;background:#f5f7fb}
-.card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 4px 18px #0001}
+body{font-family:Arial;margin:0;padding:15px;background:#f5f7fb}
+.card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 4px 18px #0001}
 .header{border-bottom:4px solid #0B3D91;display:flex;align-items:center;gap:10px;padding-bottom:10px;margin-bottom:12px}
-.header h2{margin:0;color:#0B3D91}
 textarea{width:100%;padding:14px;border:2px solid #0B3D91;border-radius:10px;height:110px;font-size:16px}
-button{width:100%;padding:14px;background:#0B3D91;color:#fff;border:none;border-radius:10px;font-weight:bold;font-size:16px;margin-top:10px}
-#out{border:1px solid #ddd;padding:18px;white-space:pre-wrap;min-height:250px;line-height:1.7;margin-top:14px;background:#fff;border-radius:10px}
+button{width:100%;padding:14px;background:#0B3D91;color:#fff;border:none;border-radius:10px;font-weight:bold;font-size:16px}
+#out{border:1px solid #ddd;padding:14px;background:#fff;white-space:pre-wrap;min-height:250px;line-height:1.7;font-size:14px;border-radius:10px}
 .small{font-size:10px;text-align:center;color:#666;margin-top:12px;border-top:1px solid #eee;padding-top:8px}
 </style>
 </head>
 <body>
 <div class="card">
 <div class="header"><h2>🚌 Postcoglu Ltd</h2></div>
-<p><b>AI-Powered Documentation Platform</b> - LEGIT FREE EDITION - Any Formal Doc in Universe</p>
+<p><b>AI-Powered Documentation Platform</b> - LEGIT FREE EDITION</p>
 <label>What document do you need?</label>
-<textarea id="topic" placeholder="Example: Project Proposal for 2 new buses 51 seater for bank loan in UGX with budget table, OR Bus daily inspection checklist, OR Driver employment contract...">Bus inspection checklist for 51 seater bus</textarea>
+<textarea id="topic" placeholder="Example: Project Proposal for 2 new buses 51 seater for bank loan in UGX"></textarea>
 <button id="btn" onclick="gen()">Generate with AI - FREE</button>
 <div id="out">Your official document will appear here... Ready for print, stamp, bank, URA.</div>
 <div style="display:flex;gap:8px;margin-top:10px">
 <button onclick="window.print()" style="background:#333">📄 PDF / Print</button>
-<button onclick="shareWA()" style="background:#25D366">WhatsApp Share</button>
+<button onclick="shareW()" style="background:#25D366">WhatsApp Share</button>
 </div>
 <div class="small">Postcoglu Ltd | Bus Charter, School Transport, Corporate Hire | Kampala, Uganda | System Generated FREE Doc valid with stamp | ai-docs-mvp-iota.vercel.app | ENGLISH ONLY - LEGIT</div>
 </div>
@@ -34,19 +33,15 @@ const topic=document.getElementById("topic").value;
 const out=document.getElementById("out");
 const btn=document.getElementById("btn");
 if(!topic){alert("Type something");return;}
-btn.innerText="GENERATING..."; out.innerText="Generating official document...";
+btn.innerText="Generating official document..."; out.innerText="Generating official document...";
 try{
-const res=await fetch("/api/generate",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({prompt:topic})
-});
+const res=await fetch("/api/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt:topic})});
 const d=await res.json();
-if(d.error){out.innerText="❌ "+d.error}else{out.innerText=d.text}
-}catch(e){out.innerText="❌ Error: "+e.message}
+if(d.error){out.innerText="❌ "+d.error}else{out.innerText=d.text||d.result||d.output||d.response||JSON.stringify(d)}
+}catch(e){out.innerText="❌ Error - "+e.message}
 btn.innerText="Generate with AI - FREE";
 }
-function shareWA(){
+function shareW(){
 const t=document.getElementById("out").innerText.slice(0,1000);
 window.open("https://wa.me/?text="+encodeURIComponent(t));
 }
