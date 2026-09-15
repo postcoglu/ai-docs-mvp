@@ -39,7 +39,7 @@ try{
 const res=await fetch("/api/generate",{
 method:"POST",
 headers:{"Content-Type":"application/json"},
-body:JSON.stringify({subject:topic})
+body:JSON.stringify({prompt:topic})
 });
 const d=await res.json();
 if(d.error){out.innerText="❌ "+d.error}else{out.innerText=d.result}
